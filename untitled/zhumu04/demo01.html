@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // var局部变量
+        var a = "3";
+        var b = 2
+        console.log(b+parseInt(a));
+        if (a){
+            console.log("ccc")
+        }
+        function add(a, b){
+            return a+b;
+        }
+        function sub(a,b){
+            return a -b;
+        }
+        function ops(f,a,b){
+            return f(a,b)
+        }
+        var res = ops(add,1,2)
+        console.log(res);
+        res = ops(sub,1,2);
+        console.log(res);
+
+        function incr(){
+            var i = 0;
+            return function (){
+                return i++
+            }
+        }
+        var i1 = incr();
+        console.log(i1())
+        console.log(i1())
+        var s =0;
+        console.log(s++)
+        console.log(s++)
+        console.log(s++)
+        console.log(s++)
+        console.log(s++)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

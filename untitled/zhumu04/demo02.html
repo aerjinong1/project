@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+                    //json
+
+
+        // var p1 = {id:1,name:"xxyhhx"};
+        // console.log(p1.id+"\t"+p1.name);
+        // var ps=[{id:1,name: "aaa",score:[11,22,33]},{id:2,name: "bbb",score:[44,55,66]}];
+        // console.log(ps[0].score[2]+ps[1].score[2])
+        var ps1=[
+            {id:1,
+            name:"aaa",
+            dis:function (){
+                console.log(this.id+"\t"+this.name);
+            }},{id:2,
+                name:"bbb",
+                dis:function (){
+                    console.log(this.id+"\t"+this.name);
+                }}
+        ]
+        ps1[0].dis();
+        ps1[1].dis();
+        function fun(){
+            mydiv.innerHTML="abc<br>"
+        }
+        function main(){
+            var mtimg = document.getElementById("mydiv");
+            mtimg.addEventListener("click",fun)
+        }
+    </script>
+</head>
+<body>
+<div id="mydiv">
+    <script>
+        var mydiv = window.document.getElementById("mydiv");
+        mydiv.innerHTML="abcd";
+        mydiv.style.color="red    "
+    </script>
+    <img src="a1.png" height="200px" width="300">
+</div>
+</body>
+</html>
