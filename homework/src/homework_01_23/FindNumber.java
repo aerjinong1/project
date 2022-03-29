@@ -30,7 +30,7 @@ public class FindNumber {
                 result = i;//如果不一样，那么一定是list少了一个，所以得返回i
                 return result;
             }
-        }
+        }//asghoigh
         return 0;
     }
 }
