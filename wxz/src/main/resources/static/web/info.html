@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>个人主页</h1>
+<h3>studentID</h3>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#button_login").click(function () {
+            // console.log($("#form-login").serialize())
+            $.ajax({
+                url:"/user/login",
+                // url:"{:url('user/login')}",
+                type:"POST",
+                data:$("#form_login").serialize(),
+                dataType:"json",
+                success:function (res){
+                    if(res.state === 200){
+                        alert("登录成功")
+                        location.href="./index.html"
+                    }else {
+                        alert("登录失败")
+                    }
+                },
+                error:function (xhr) {
+                    alert("登录产生异常"+xhr.message)
+                }
+            })
+        })
+
+    })
+</script>
+</body>
+</html>

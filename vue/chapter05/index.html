@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天职师大欢迎您</title>
+    <script src="vue (1).js"></script>
+    <script src="vue-router.js"></script>
+    <link rel="stylesheet" href="animate.css">
+    
+    <style>
+        
+        div.circular{
+            width: 100px; height: 100px; background: red;
+            border-radius: 50%;margin-top: 20px;text-align: center;
+            line-height: 100px;color:#fff;
+        }
+        .bounce-enter-active{
+            animation: Ami .5s;
+        }
+        .bounce-leave-active{
+            animation: Ami .5s;
+        }
+        @keyframes Ami{
+            0% {transform: scale(0); background: red;}
+            20% {transform: scale(1); background: rgb(141, 241, 10);}
+            50% {transform: scale(1.5); background: rgb(14, 28, 223);}
+            100% {transform: scale(1); background: rgb(205, 6, 98);}
+        }
+        ul,li,h1{padding:0;margin:0;list-style:none}
+        #app{width:100%;display:flex;flex-direction:row ;}
+        ul{width:250px;flex-direction:column ;color:#fff;}
+        li{flex:1;background: rgb(82, 1, 55);margin:15px auto;
+           text-align: center;line-height: 50px;}
+        .about-detail{flex: 2;margin-left: 50px;}
+        .about-detail h1{font-size:24px;color:bule;}
+    </style>
+</head>
+<body style="background: url(www.jpg) ; background-size:100% 100% ; background-attachment: fixed">
+    <div id="app">
+        
+        <button @click="show=!show">欢迎来到tute</button>
+        <transition name="bounce">
+            <div class="circular" v-if="show">天天向上</div>
+        </transition>
+       <ul>
+        <li>
+          <router-link to="/about" tag="li">关于学校</router-link>
+        </li>
+        <li>
+          <router-link to="/contact" tag="li">联系我们</router-link>
+        </li>
+       </ul>
+       <router-view></router-view>
+
+    </div>
+
+    <template id="about-tmp">
+        <div class="about-detail">
+            <h1>天津职业技术师范大学</h1>
+            <router-link to="/about/detail">班级简介</router-link>
+            <router-link to="/about/governance">学校简章</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+
+    <template id="contact-tmp">
+        <div class="about-detail">
+            <h1>联系我们</h1>
+            <input v-bind:value="msg">
+            
+            
+        </div>
+    </template>
+    <template id="abc">
+        <div class="about-governance">
+            <button @click="show=!show">点击显示信息</button>
+    <transition appear appear-active-class="animated swing"
+    enter-active-class="animated bounceIn"
+    leave-active-class="animated bounceOut">
+<div v-if="show">天津职业技术师范大学是中国最早建立的以培养职业教育师资为主要任务的普通高等师范院校，教育部与天津市人民政府共建高校，教育部卓越教师培养计划实施院校，中国政府奖学金来华 留学 生接收院校，天津市高水平特色大学建设高校。</div>
+</transition>
+        </div>
+    </template>  
+    <template id="aacontact">
+      <div class="about-detail">
+        <input class="login-input" type="text" v-model="name" placeholder="姓名">
+        <input class="login-input" type="text" v-model="grade" placeholder="年级">
+        <input class="login-input" type="text" v-model="gender" placeholder="性别">
+        <input class="login-input" type="text" v-model="age" placeholder="请输入年龄">
+     <button @click="add">添加学生</button>
+     <button @click="del">删除学生</button>
+     <table border="1" width="50%" style="border-collapse: collapse">
+     <tr>
+     <th>班级</th>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>年龄</th>
+    </tr>
+    <tr align="center" v-for="item in students">
+    <td>{{item.grade}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.gender}}</td>
+    <td>{{item.age}}</td>
+    </tr>
+    </table>
+    </div>
+ </template>
+
+  
+    <script>
+        var about={
+          template:'#about-tmp'
+        }
+        var contact={
+          template:'#contact-tmp',
+          data() {
+                return {
+                    msg:'欢迎来到tute'
+               }
+             }
+        }
+       
+        var detail={
+            template:'#aacontact',
+             data(){
+               return{
+             students: [],
+             name: '',
+             grade: '',
+             age: '',
+             gender: ''
+                }
+
+            },
+         methods: {
+          add(){
+           var student = {grade: this.grade,name: this.name,gender: this.gender,age: this.age}
+
+         this.students.push(student)
+               },
+        del(){
+             this.students.pop()
+                   }
+               }
+             }
+        var governance={
+            template:'#abc',
+          data() {
+                return {
+                    show:true
+               }
+             }
+        }
+
+        var router=new VueRouter({
+            routes:[
+                {path:'/',redirect:'/about'},
+                {
+                    path:'/about',
+                    component:about,
+                    children:[
+                        {path:'detail',component:detail},
+                        {path:'governance',component:governance}
+                    ]
+                },
+                {path:'/contact',component:contact}
+            ]
+        })
+        var vm=new Vue({
+            el: '#app',
+        data:{
+            show: true
+        },
+        router
+        })
+    </script>
+</body>
+</html>
