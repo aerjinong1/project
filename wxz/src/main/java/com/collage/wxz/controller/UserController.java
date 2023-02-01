@@ -3,15 +3,12 @@ package com.collage.wxz.controller;
 import com.collage.wxz.entity.User;
 import com.collage.wxz.service.IUserservice;
 import com.collage.wxz.util.JsonResult;
-import com.collage.wxz.util.JwtUtil;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //@Controller
@@ -38,9 +35,30 @@ public class UserController extends BaseController {
 
         return new JsonResult<User>(OK,res);
     }
-    @RequestMapping("getstuId")
-    public JsonResult<User> getstuId(HttpSession session){
-        User user = userservice.getstuId(getuidFromSession(session));
+
+    @RequestMapping("tests")
+    public String tests(HttpSession session){
+
+        Object studentID = session.getAttribute("studentID");
+        String id = studentID.toString();
+        return id;
+    }
+
+
+    @RequestMapping("getStuIdBySession")
+    public String getStuIdSession(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws Exception {
+        Object obj = request.getSession().getAttribute("studentID");
+        String str = obj.toString();
+        return str;
+    }
+
+    @RequestMapping("findStudentById")
+    public JsonResult<User> findStudentById(int id){
+        User user = userservice.findStudentById(id);
+
         return new JsonResult<>(OK,user);
+
     }
 }

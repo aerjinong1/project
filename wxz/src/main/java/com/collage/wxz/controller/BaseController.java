@@ -1,5 +1,6 @@
 package com.collage.wxz.controller;
 
+import com.collage.wxz.entity.User;
 import com.collage.wxz.service.ex.InsertException;
 import com.collage.wxz.service.ex.PasswordNotMatchException;
 import com.collage.wxz.service.ex.ServiceException;
@@ -33,5 +34,7 @@ public class BaseController {
     protected final Integer getuidFromSession(HttpSession session) {
         return Integer.valueOf(session.getAttribute("uid").toString());
     }
+
+
 
 }
